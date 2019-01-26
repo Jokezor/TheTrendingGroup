@@ -7,7 +7,7 @@ Currently the Main_script.py calls on Google_data.py with input variables `Compa
 
 To do:
 
-1. Fix return value from google trending data.
+1. Fix return value from Google_data.py
 2. Check so everything works.
 3. Analysis of trending data.
 3. Build Stock_data.py
