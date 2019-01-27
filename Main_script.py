@@ -15,7 +15,7 @@ def main():
     # What company we want to check
     Company = '"NeoNode"'
 
-    # Gets the last hourly data
+    # Gets the last week's data
     timeframe = '"now 7-d"'
 
     # Get google data, Trending_google captures the print() from Google_data.py
