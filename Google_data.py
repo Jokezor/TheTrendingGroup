@@ -24,9 +24,6 @@ def main():
     Company = sys.argv[1] # Argument 1 since first argument is the program itself
     timefr = sys.argv[2] # Timeframe
 
-    print sys.argv[1]
-    print sys.argv[2]
-
     # Login to Google. Only need to run this once, the rest of requests will use the same session.
     # hl specifies language english and tz specifies Sweden's timezone
     pytrend = TrendReq(hl='en-US', tz=-60)
@@ -37,6 +34,6 @@ def main():
     # Interest Over Time
     interest_over_time_df = pytrend.interest_over_time()
     print(interest_over_time_df)
-    return (interest_over_time_df)
+    
 
 main()
