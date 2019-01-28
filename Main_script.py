@@ -9,22 +9,22 @@
 '''
 import subprocess
 import os
+import Google_data # Imports the Google_data.py program and we can use its functions.
 
-# Will try to import function now instead so that people don't need to learn
-# something that probably won't be used
 
 def main():
 
     # What company we want to check
-    Company = '"NeoNode"'
+    Company = "NeoNode"
 
     # Gets the last week's data
-    timeframe = '"now 7-d"'
+    timeframe = "now 7-d"
 
-    # Get google data, Trending_google captures the print() from Google_data.py
-    Trending_google = subprocess.check_output("python Google_data.py " + Company + " " + timeframe, shell=True, stderr=subprocess.STDOUT)
+    # Calls on the Google_data's function Trending_google with our variables.
+    Trend_data = Google_data.Trending_google(Company,timeframe)
 
-    # Currently is a string. Need to find a way to return list instead of string.
-    print (Trending_google)
+    # Prints the trending data.
+    print (Trend_data)
 
-main()
+if __name__ == "__main__":
+    main()
