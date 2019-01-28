@@ -7,9 +7,10 @@ Currently the Main_script.py calls on Google_data.py with input variables `Compa
 
 ## To do:
 
-1. Check so everything works.
-2. Analysis of trending data.
+1. Check so everything works
+2. Build Alarm.py
 3. Build Stock_data.py
 4. Get return value of Stock_data.py
-5. Analysis of all data with correlation with stock.
-6. Nice plots of everything.
+5. Check if we can get Google searches instead of trend factor
+6. Analysis of all data with correlation with stock
+7. Nice plots of everything
