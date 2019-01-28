@@ -18,13 +18,10 @@ def main():
     # Gets the last week's data
     timeframe = '"now 7-d"'
 
-    # Get google data
-    #Trending_google = call(["python ", Company, " ", timeframe , "Google_data.py"], shell=True)
+    # Get google data, Trending_google captures the print() from Google_data.py
+    Trending_google = subprocess.check_output("python Google_data.py " + Company + " " + timeframe, shell=True, stderr=subprocess.STDOUT)
 
-
-    #Trending_google = os.system('python Google_data.py ' + Company + ' ' + timeframe)
-    x = subprocess.check_output("python Google_data.py " + Company + " " + timeframe,shell=True).strip()
-
-    print(x)
+    # Currently is a string. Need to find a way to return list instead of string.
+    print (Trending_google)
 
 main()
