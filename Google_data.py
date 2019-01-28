@@ -16,6 +16,8 @@
 # To see documentation and examples follow the link below
 # https://github.com/GeneralMills/pytrends
 
+# I did some work here, shouldn't affect the master.
+
 import sys
 from pytrends.request import TrendReq
 
