@@ -6,7 +6,7 @@
     Input: Company and timeframe
     Output: Hashtable with the time and corresponding trend data
 '''
-
+# test
 # To install pytrends:
 '''
     1. pip install pytrends
