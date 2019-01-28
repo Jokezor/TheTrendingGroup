@@ -36,6 +36,6 @@ def main():
     # Interest Over Time
     interest_over_time_df = pytrend.interest_over_time()
     print(interest_over_time_df)
-    
+
 
 main()
