@@ -18,7 +18,6 @@
 
 # I did some work here, shouldn't affect the master.
 
-import sys
 from pytrends.request import TrendReq
 
 def Trending_google(Company,timefr):
