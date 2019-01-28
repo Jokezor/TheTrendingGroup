@@ -4,7 +4,7 @@
     We use a module named pytrends. I can only get it for python 2.7.
 
     Input: Company and timeframe
-    Output: List with the time and corresponding trend data
+    Output: Hashtable with the time and corresponding trend data
 '''
 
 # To install pytrends:
@@ -19,10 +19,10 @@
 import sys
 from pytrends.request import TrendReq
 
-def main():
+def Trending_google(Company,timefr):
 
-    Company = sys.argv[1] # Argument 1 since first argument is the program itself
-    timefr = sys.argv[2] # Timeframe
+    # Create hashtable to store time and corresponding trend data
+    Trend_data = {}
 
     # Login to Google. Only need to run this once, the rest of requests will use the same session.
     # hl specifies language english and tz specifies Sweden's timezone
@@ -31,9 +31,11 @@ def main():
     # Create payload and capture API tokens. Only needed for interest_over_time(), interest_by_region() & related_queries()
     pytrend.build_payload(kw_list=[Company],timeframe=timefr)
 
-    # Interest Over Time
+    # Interest Over Time from google trends
     interest_over_time_df = pytrend.interest_over_time()
-    print(interest_over_time_df)
-    
 
-main()
+    # Store the data in the hashtable
+    Trend_data["Trend"] = interest_over_time_df.values[:,0]
+    Trend_data["Date"] = interest_over_time_df.index
+
+    return (Trend_data)
