@@ -10,6 +10,9 @@
 import subprocess
 import os
 
+# Will try to import function now instead so that people don't need to learn
+# something that probably won't be used
+
 def main():
 
     # What company we want to check
