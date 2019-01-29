@@ -7,10 +7,8 @@
     First we will try to get some trending data from google trends.
 
 '''
-import subprocess
-import os
-import Google_data # Imports the Google_data.py program and we can use its functions.
-
+#  Imports the Google_data.py program and we can use its functions.
+import Google_data
 
 def main():
 
