@@ -7,16 +7,9 @@
     Output: Hashtable with the time and corresponding trend data
 '''
 
-# To install pytrends:
-'''
-    1. pip install pytrends
-    2. pip install --upgrade --user git+https://github.com/GeneralMills/pytrends
-'''
 # Python 2.7
 # To see documentation and examples follow the link below
 # https://github.com/GeneralMills/pytrends
-
-# I did some work here, shouldn't affect the master.
 
 from pytrends.request import TrendReq
 
