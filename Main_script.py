@@ -26,5 +26,6 @@ def main():
     # Prints the trending data.
     print (Trend_data)
 
+    # This line is not necessery.
 if __name__ == "__main__":
     main()
