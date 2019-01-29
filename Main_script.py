@@ -14,7 +14,7 @@ import Google_data # Imports the Google_data.py program and we can use its funct
 
 def main():
 
-    # What company we want to check
+    # What company we want to check 1
     Company = "NeoNode"
 
     # Gets the last week's data
