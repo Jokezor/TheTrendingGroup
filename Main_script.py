@@ -28,8 +28,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    #hola dsad sadsafdsafdsagfdsa
-#hola dsad sadsafdsafdsagfdsa 
-#hola dsad sadsafdsafdsagfdsa
-    #hola dsad sadsafdsafdsagfdsa
-#hola dsad sadsafds#ho#hola dsad sadsafdsafdsagfdsa #hola dsad sadsafdsafdsagfdsa #hola dsad sadsafdsafdsagfdsa #hola dsad sadsafdsafdsagfdsa #hola dsad sadsafdsafdsagfdsa la dsad sadsafdsafdsagfdsa #hola dsad sadsafdsafdsagfdsa a#hola dsad sadsafdsafdsagfdsa fdsagfdsa
