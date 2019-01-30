@@ -28,6 +28,7 @@ def Trending_google(Company,timefr):
     # Interest Over Time from google trends
     interest_over_time_df = pytrend.interest_over_time()
 
+    # Last date is 100 get the full data otherwise only period_to_look
     # Store the data in the hashtable
     Trend_data["Trend"] = interest_over_time_df.values[:,0]
     Trend_data["Date"] = interest_over_time_df.index
