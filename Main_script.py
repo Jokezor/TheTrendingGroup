@@ -10,11 +10,15 @@
 #  Imports the Google_data.py program and we can use its functions.
 #  Comment extra
 import Google_data
+import Stock_data
+import Ask_dates
 
 def main():
 
+    #Company, period_to_look, period_of_change, percent_change = Ask_dates.Ask_dates()
+    Company = Ask_dates.Ask_dates()
     # What company we want to check
-    Company = "NeoNode"
+    #Company = "Apple"
 
     # Period to look and take benchmark for
     period_to_look = "Week"
@@ -29,18 +33,22 @@ def main():
     auto = 1
 
     # just fun message output
-    if auto:
-        print "Auto mode engaged"
+    #if auto:
+    #    print "Auto mode engaged"
 
     if period_to_look == "Week":
         # Gets the last week's data
         timeframe = "today 5-y"
 
+    # Test to get one dates trending factor
+    timeframe = '2018-12-14 2018-12-15'
+
     # Calls on the Google_data's function Trending_google with our variables.
-    Trend_data = Google_data.Trending_google(Company,timeframe)
+    #Trend_data = Google_data.Trending_google(Company,timeframe)
+    #Stocks_data = Stock_data.Get_stock_data(Company,period_to_look)
 
     # Prints the trending data.
-    print (Trend_data)
+    print (Company)
 
 if __name__ == "__main__":
     main()

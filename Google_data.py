@@ -1,6 +1,6 @@
 '''
     This program is solely responsable for taking the google trends data and output
-    a list with the time and trending data.
+    a hashtable with the time and trending data.
     We use a module named pytrends. I can only get it for python 2.7.
 
     Input: Company and timeframe
@@ -30,6 +30,7 @@ def Trending_google(Company,timefr):
 
     # Last date is 100 get the full data otherwise only period_to_look
     # Store the data in the hashtable
+    print(interest_over_time_df)
     Trend_data["Trend"] = interest_over_time_df.values[:,0]
     Trend_data["Date"] = interest_over_time_df.index
 
