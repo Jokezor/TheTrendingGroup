@@ -8,7 +8,7 @@
 
 '''
 #  Imports the Google_data.py program and we can use its functions.
-# CComment extra
+#  Comment extra
 import Google_data
 
 def main():
@@ -34,7 +34,7 @@ def main():
 
     if period_to_look == "Week":
         # Gets the last week's data
-        timeframe = "now 7-d"
+        timeframe = "today 5-y"
 
     # Calls on the Google_data's function Trending_google with our variables.
     Trend_data = Google_data.Trending_google(Company,timeframe)
