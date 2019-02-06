@@ -20,7 +20,7 @@
 
 from pytrends.request import TrendReq
 
-def Trending_google(Company,timefr):
+def Trending_google(Company, timefr):
 
     # Create hashtable to store time and corresponding trend data
     Trend_data = {}

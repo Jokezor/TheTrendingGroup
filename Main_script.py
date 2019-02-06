@@ -15,16 +15,19 @@ import Google_data # Imports the Google_data.py program and we can use its funct
 def main():
 
     # What company we want to check
-    Company = "NeoNode"
+    Company = ["NeoNode", "Apple", "IBM", "Hoka one one"]
 
     # Gets the last week's data
     timeframe = "now 7-d"
 
-    # Calls on the Google_data's function Trending_google with our variables.
-    Trend_data = Google_data.Trending_google(Company,timeframe)
 
-    # Prints the trending data.
-    print (Trend_data)
+    i = 0;
+    for i in  range(0, len(Company)):
+        # Calls on the Google_data's function Trending_google with our variables.
+        Trend_data = Google_data.Trending_google(Company[i], timeframe)
+
+        # Prints the trending data.
+        print (Trend_data)
 
     # This line is not necessery.
 if __name__ == "__main__":
