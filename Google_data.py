@@ -5,6 +5,7 @@
 
     Input: Company and timeframe
     Output: Hashtable with the time and corresponding trend data
+    If no data is found: Output=0
 '''
 
 # Python 2.7
@@ -23,15 +24,17 @@ def Trending_google(Company,timefr):
     pytrend = TrendReq(hl='en-US', tz=-60)
 
     # Create payload and capture API tokens. Only needed for interest_over_time(), interest_by_region() & related_queries()
-    pytrend.build_payload(kw_list=[Company],timeframe=timefr)
+    pytrend.build_payload(kw_list=Company,timeframe=timefr)
 
     # Interest Over Time from google trends
     interest_over_time_df = pytrend.interest_over_time()
 
-    # Last date is 100 get the full data otherwise only period_to_look
-    # Store the data in the hashtable
-    print(interest_over_time_df)
-    Trend_data["Trend"] = interest_over_time_df.values[:,0]
-    Trend_data["Date"] = interest_over_time_df.index
-
-    return (Trend_data)
+    # If the company/companies contain trend data then construct the hashtable
+    # and return it. Otherwise return 0.
+    if not (interest_over_time_df.empty):
+        for i in range(0,len(Company)):
+            Trend_data[Company[i]] = interest_over_time_df.values[:,i]
+        Trend_data["Date"] = interest_over_time_df.index
+        return (Trend_data)
+    else:
+        return (0)

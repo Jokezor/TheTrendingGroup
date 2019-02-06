@@ -30,7 +30,7 @@ def Ask_dates():
     # Placeholder name
     period_of_change = "Decade"
 
-    # Currently only works for month, week and day
+    # Currently only works for monthly, weekly and dayly
     while(period_of_change != "Month" and period_of_change != "Week" and period_of_change != "Day"):
 
         if (period_to_look == "Year"):
@@ -58,5 +58,5 @@ def Ask_dates():
         if((percent_change <= 0) or (percent_change > 100)):
             print "\n" + "Wrong Input: " + str(percent_change) + "\n" +  "Try Again."
 
-    # Need to return correct period_to_look and period_of_change corresponding to Google API
-    return Company
+
+    return Company, period_to_look, period_of_change, percent_change
