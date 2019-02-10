@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+  <div class="jumbotron text-center">
+    <h1>Trending Analysis and Stock correlation</h1>
+    <p class="lead">Easy tool to analyze trending data and to set alarms based on previous benchmarks.<br> Login to be able to run and start queries.</p>
+    {% if session.logged_in == NULL %}
+      <a href="/register" class="btn btn-primary btn-lg">Register</a>
+      <a href="/login" class="btn btn-success btn-lg">Login</a>
+
+    {% endif %}
+  </div>
+  <div class="jumbotron text-center">
+    <h1>Select Company/Companies to analyze</h1>
+  </div>
+{% endblock %}
