@@ -1,21 +1,20 @@
 '''
     This program is solely responsable for taking the stock data and output
-    a hashtable with the time and stock data.
-    we use a module named pandas to read the stock data from google finance
+    a hashtable with the stock data.
+    we use a module named yahoofinancials to read the stock data
 
     Input: Company/Companies and timeframe
-    Output: Hashtable with dates and hashtable for each company with stock prices
+    Output: Hashtable with hashtable for each company with stock prices
 '''
 
-from pandas_datareader import data
-import matplotlib.pyplot as plt
-import pandas as pd
 import datetime
 from datetime import date, timedelta
 import Time_funcs
+import Company_to_ticker
 
 from yahoofinancials import YahooFinancials
 
+# https://pypi.org/project/yahoofinancials/
 
 # Function to clean data extracts
 def clean_stock_data(stock_data_list):
@@ -26,19 +25,14 @@ def clean_stock_data(stock_data_list):
     return new_list
 
 
-
 def Get_stock_data(Company,timeframe):
     # Define the instruments to download. We would like to see Apple, Microsoft and the S&P500 index.
 
     # 1. Convert company names to tickers
+    tickers = Company_to_ticker.Company_to_ticker(Company)
 
-    # 2. Get data for all the tickers
-
-    # 3. Maybe reshape the hashtable?
-
-    # 4. Return the hashtable
-
-    tickers = ['AAPL', 'MSFT', 'GSPC']
+    # Frequency of the stock data
+    freq = 'daily'
 
     # https://stackoverflow.com/questions/51286525/getting-stock-historical-data-from-api-for-a-python-project
 
@@ -48,38 +42,31 @@ def Get_stock_data(Company,timeframe):
     # Second date
     end_date = timeframe[11:len(timeframe)]
 
+    # Create hashtable to store hashtables of company stock data
+    Stock_data = {}
 
-    # Select Tickers and stock history dates
-    ticker = 'AAPL'
-    ticker2 = 'MSFT'
-    ticker3 = 'INTC'
-    index = '^NDX'
-    freq = 'daily'
+    # Go through each companies tickers
+    for ticker in tickers:
 
-    # Construct yahoo financials objects for data extraction
-    aapl_financials = YahooFinancials(tickers)
+        # second hashtable to store prices in
+        Prices = {}
 
-    #index_financials = YahooFinancials(index)
-    print (aapl_financials.get_historical_price_data(start_date, end_date, freq))#[ticker])
+        # Construct yahoo financials objects for data extraction
+        aapl_financials = YahooFinancials(ticker)
 
-
-    # Clean returned stock history data and remove dividend events from price history
-    daily_aapl_data = clean_stock_data(aapl_financials.get_historical_price_data(start_date, end_date, freq)[ticker]['prices']) #[ticker]['prices'])
-
-    # List of hashtable
-    #print(type(daily_aapl_data))
-
-    # Time to construct hashtable from this list.
-    '''
-    daily_msft_data = clean_stock_data(mfst_financials.get_historical_stock_data(start_date, end_date, freq)[ticker2]['prices'])
-    daily_intl_data = clean_stock_data(intl_financials.get_historical_stock_data(start_date, end_date, freq)[ticker3]['prices'])
-    #daily_index_data = index_financials.get_historical_stock_data(start_date, end_date, freq)[index]['prices']
-    stock_hist_data_list = [{'NDX': daily_index_data}, {'AAPL': daily_aapl_data}, {'MSFT': daily_msft_data}, {'INTL': daily_intl_data}]
-    '''
+        Open_values = []
+        for day in aapl_financials.get_historical_price_data(start_date, end_date, freq)[ticker]['prices']:
+            Open_values.append(day['open'])
 
 
-Company = "Apple"
-timeframe = "2019-01-08 2019-02-08"
+        Close_values = []
+        for day in aapl_financials.get_historical_price_data(start_date, end_date, freq)[ticker]['prices']:
+            Close_values.append(day['close'])
+
+        Prices['open'] = Open_values
+        Prices['close'] = Close_values
+
+        Stock_data[ticker] = Prices
 
 
-Get_stock_data(Company,timeframe)
+    return Stock_data

@@ -12,18 +12,15 @@
 import Google_data
 import Stock_data
 import Ask_dates
-#import Period_to_timeframe
+import Period_to_timeframe
 
 def main():
 
     # Asks user and gets all input
     #Company, period_to_look, period_of_change, percent_change = Ask_dates.Ask_dates()
 
-    # Convert period to timeframes for API
-    timeframes = Period_to_timeframe.Period_to_timeframe(period_to_look)
-
     # What company we want to check
-    Company = ['Apple', 'NeoNode']
+    Company = ['Apple Inc.', 'Neonode Inc.']
 
     # Period to look and take benchmark for
     period_to_look = "Week"
@@ -46,15 +43,18 @@ def main():
         timeframe = "today 1-y"
 
     # Test to get one dates trending factor
-    timeframe = '2017-12-01 2018-12-01'
+    # Convert period to timeframes for API
+    #timeframe = Period_to_timeframe.Period_to_timeframe(period_to_look)
+    timeframe = '2019-01-01 2019-02-01'
+
 
     # Calls on the Google_data's function Trending_google with our variables.
     # If not enough data is available, then returns a 0. (int)
     #Trend_data = Google_data.Trending_google(Company,timeframe)
-    #Stocks_data = Stock_data.Get_stock_data(Company,period_to_look)
+    Stock_datas = Stock_data.Get_stock_data(Company,timeframe)
 
     # Prints the trending data.
-    print (type(timeframe))
+    print (Stock_datas)
 
 if __name__ == "__main__":
     main()
