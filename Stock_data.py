@@ -12,6 +12,8 @@ from datetime import date, timedelta
 import Time_funcs
 import Company_to_ticker
 import numpy as np
+import time
+import Time_funcs
 
 from yahoofinancials import YahooFinancials
 
@@ -32,8 +34,7 @@ def Get_stock_data(Company,timeframe):
     # 1. Convert company names to tickers
     tickers = Company_to_ticker.Company_to_ticker(Company)
 
-    # Frequency of the stock data
-    freq = 'daily'
+
 
     # https://stackoverflow.com/questions/51286525/getting-stock-historical-data-from-api-for-a-python-project
 
@@ -42,6 +43,18 @@ def Get_stock_data(Company,timeframe):
 
     # Second date
     end_date = timeframe[11:len(timeframe)]
+
+    # Frequency of the stock data
+    freq = 'daily'
+
+    # Checks if there is a difference of a year
+    check_start = start_date.replace("-", "")
+    check_end = end_date.replace("-","")
+    check_start = (datetime.datetime.strptime(check_start, "%Y%m%d").date())
+    check_end = (datetime.datetime.strptime(check_end, "%Y%m%d").date())
+    if ((check_end-check_start).days)>=365:
+        freq = 'weekly'
+
 
     # Create hashtable to store hashtables of company stock data
     Stock_data = {}
@@ -53,19 +66,47 @@ def Get_stock_data(Company,timeframe):
         Prices = {}
 
         # Construct yahoo financials objects for data extraction
-        aapl_financials = YahooFinancials(ticker)
+        financials = YahooFinancials(ticker)
 
+        finance = financials.get_historical_price_data(start_date, end_date, freq)[ticker]['prices']
+
+        # Create lists
         Open_values = []
-        for day in aapl_financials.get_historical_price_data(start_date, end_date, freq)[ticker]['prices']:
-            Open_values.append(day['open'])
-
-
         Close_values = []
-        for day in aapl_financials.get_historical_price_data(start_date, end_date, freq)[ticker]['prices']:
-            Close_values.append(day['close'])
+
+        # Check if weekno+1 is >=5, then add two ['close'] to both Open_values and Close_values
+
+        # Fixes stock prices for dates of weekends. Need only to check if we have
+        # daily data.
+        if freq == 'daily':
+            weekno = check_start.weekday()
+
+            # First add if the start date is on a weekend
+            while (weekno)>=5:
+                Open_values.append(finance[0]['open'])
+                Close_values.append(finance[0]['close'])
+                weekno = (weekno+1)%7
+
+            for i in range(0,len(finance)):
+                Open_values.append(finance[i]['open'])
+                Close_values.append(finance[i]['close'])
+                weekno = (weekno+1)%7
+
+                while (weekno)>=5:
+                    Open_values.append(finance[i]['close'])
+                    Close_values.append(finance[i]['close'])
+                    weekno = (weekno+1)%7
+        # Just add the data for weekly stock data
+        else:
+            for i in range(0,len(finance)):
+                Open_values.append(finance[i]['open'])
+                Close_values.append(finance[i]['close'])
+
+
 
         Prices['open'] = np.array(Open_values)
         Prices['close'] = np.array(Close_values)
+
 
         Stock_data[ticker] = Prices
 
