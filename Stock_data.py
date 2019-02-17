@@ -11,6 +11,7 @@ import datetime
 from datetime import date, timedelta
 import Time_funcs
 import Company_to_ticker
+import numpy as np
 
 from yahoofinancials import YahooFinancials
 
@@ -63,8 +64,8 @@ def Get_stock_data(Company,timeframe):
         for day in aapl_financials.get_historical_price_data(start_date, end_date, freq)[ticker]['prices']:
             Close_values.append(day['close'])
 
-        Prices['open'] = Open_values
-        Prices['close'] = Close_values
+        Prices['open'] = np.array(Open_values)
+        Prices['close'] = np.array(Close_values)
 
         Stock_data[ticker] = Prices
 
