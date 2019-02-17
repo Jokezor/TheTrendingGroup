@@ -13,6 +13,7 @@
 # https://github.com/GeneralMills/pytrends
 
 from pytrends.request import TrendReq
+import numpy as np
 
 def Trending_google(Company,timefr):
 
@@ -33,8 +34,14 @@ def Trending_google(Company,timefr):
     # and return it. Otherwise return 0.
     if not (interest_over_time_df.empty):
         for i in range(0,len(Company)):
-            Trend_data[Company[i]] = interest_over_time_df.values[:,i]
+            Trend_data[Company[i]] = interest_over_time_df.values[:,i].astype(float)
         Trend_data["Date"] = interest_over_time_df.index
         return (Trend_data)
     else:
         return (0)
+
+
+Company = ['Apple Inc.', 'Neonode Inc.']
+timeframe = '2019-01-01 2019-02-01'
+
+print(Trending_google(Company,timeframe))
