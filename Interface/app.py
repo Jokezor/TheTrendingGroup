@@ -45,6 +45,7 @@ def index():
 def about():
     return render_template('about.html')
 
+
 # Several articles
 @app.route('/articles')
 def articles():
@@ -65,6 +66,29 @@ def articles():
 
     # Close connection to db
     cur.close()
+
+'''
+# Send the Companies to choose from
+@app.route('/companies')
+def articles():
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Get articles
+    result = cur.execute("SELECT * FROM articles")
+
+    articles = cur.fetchall()
+
+    # if we get rows back
+    if result > 0:
+        return render_template('articles.html', articles=articles)
+    else:
+        msg = 'No Articles Found'
+        return render_template('articles.html', msg=msg)
+
+    # Close connection to db
+    cur.close()
+'''
 
 # Single article
 @app.route('/article/<string:id>/')
@@ -212,9 +236,9 @@ class ArticleForm(Form):
 
 
 # Add Article
-@app.route('/add_article', methods=['GET', 'POST'])
+@app.route('/add_analysis', methods=['GET', 'POST'])
 @is_logged_in
-def add_article():
+def add_analysis():
     form = ArticleForm(request.form)
     if request.method == 'POST' and form.validate():
         title = form.title.data;
@@ -236,7 +260,7 @@ def add_article():
 
         return redirect(url_for('dashboard'))
 
-    return render_template('add_article.html', form=form)
+    return render_template('add_analysis.html', form=form)
 
 
 # Edit Article

@@ -13,14 +13,21 @@ import Google_data
 import Stock_data
 import Ask_dates
 import Period_to_timeframe
+import Correlation
 
 def main():
 
     # Asks user and gets all input
     #Company, period_to_look, period_of_change, percent_change = Ask_dates.Ask_dates()
 
+    Reset = False
+
     # What company we want to check
     Company = ['Apple Inc.', 'Neonode Inc.']
+
+    #Create_files.Creation(Company,Reset)
+    Companies_to_reset = ['Apple Inc.', 'Neonode Inc.']
+    #Create_files.Creation(Companies_to_reset,Reset)
 
     # Period to look and take benchmark for
     period_to_look = "Week"
@@ -50,11 +57,12 @@ def main():
 
     # Calls on the Google_data's function Trending_google with our variables.
     # If not enough data is available, then returns a 0. (int)
-    #Trend_data = Google_data.Trending_google(Company,timeframe)
+    Trend_data = Google_data.Trending_google(Company,timeframe)
     Stock_datas = Stock_data.Get_stock_data(Company,timeframe)
+    Correlation.Get_correlation(Trend_data,Stock_datas)
 
     # Prints the trending data.
-    print (Stock_datas)
+    #print (Trend_data)
 
 if __name__ == "__main__":
     main()

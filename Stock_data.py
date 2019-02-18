@@ -19,22 +19,11 @@ from yahoofinancials import YahooFinancials
 
 # https://pypi.org/project/yahoofinancials/
 
-# Function to clean data extracts
-def clean_stock_data(stock_data_list):
-    new_list = []
-    for rec in stock_data_list:
-        if 'type' not in rec.keys():
-            new_list.append(rec)
-    return new_list
-
-
 def Get_stock_data(Company,timeframe):
     # Define the instruments to download. We would like to see Apple, Microsoft and the S&P500 index.
 
     # 1. Convert company names to tickers
     tickers = Company_to_ticker.Company_to_ticker(Company)
-
-
 
     # https://stackoverflow.com/questions/51286525/getting-stock-historical-data-from-api-for-a-python-project
 
@@ -91,6 +80,7 @@ def Get_stock_data(Company,timeframe):
                 Open_values.append(finance[i]['open'])
                 Close_values.append(finance[i]['close'])
                 weekno = (weekno+1)%7
+                print(finance[i]['formatted_date'])
 
                 while (weekno)>=5:
                     Open_values.append(finance[i]['close'])
@@ -103,12 +93,9 @@ def Get_stock_data(Company,timeframe):
                 Close_values.append(finance[i]['close'])
 
 
-
         Prices['open'] = np.array(Open_values)
         Prices['close'] = np.array(Close_values)
 
-
         Stock_data[ticker] = Prices
-
 
     return Stock_data

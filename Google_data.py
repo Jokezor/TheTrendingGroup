@@ -39,9 +39,3 @@ def Trending_google(Company,timefr):
         return (Trend_data)
     else:
         return (0)
-
-
-Company = ['Apple Inc.', 'Neonode Inc.']
-timeframe = '2019-01-01 2019-02-01'
-
-print(Trending_google(Company,timeframe))
