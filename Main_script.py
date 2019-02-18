@@ -8,13 +8,21 @@
 
 '''
 #  Imports the Google_data.py program and we can use its functions.
-# CComment extra
+# Comment extra
 import Google_data
+import Benchmark
+import Create_files
+import Hashit
 
 def main():
 
+
     # What company we want to check
-    Company = "NeoNode"
+    Company = ["Neonode","Apple"]
+    Reset = False
+
+    # Create new file to store Data
+    Create_files.Creation(Company,Reset)
 
     # Period to look and take benchmark for
     period_to_look = "Week"
@@ -30,17 +38,25 @@ def main():
 
     # just fun message output
     if auto:
-        print "Auto mode engaged"
+        print ("Auto mode engaged")
 
     if period_to_look == "Week":
         # Gets the last week's data
         timeframe = "now 7-d"
 
     # Calls on the Google_data's function Trending_google with our variables.
-    Trend_data = Google_data.Trending_google(Company,timeframe)
+    timeframe = '2019-01-01 2019-02-01'
+    Trend_data = Google_data.Trending_google(Company,"now 7-d")
+    #Trend_data = Google_data.Trending_google(Company,timeframe)
 
-    # Prints the trending data.
-    print (Trend_data)
+    # prints the trending data.
+    # print (Trend_data)
+    #dict = Hashit.Create(Company+"_Trend")
+
+    for comp in Company:
+        Changes = Benchmark.Calc(Trend_data,comp)
+
+
 
 if __name__ == "__main__":
     main()

@@ -23,7 +23,7 @@ def Trending_google(Company,timefr):
     pytrend = TrendReq(hl='en-US', tz=-60)
 
     # Create payload and capture API tokens. Only needed for interest_over_time(), interest_by_region() & related_queries()
-    pytrend.build_payload(kw_list=[Company],timeframe=timefr)
+    pytrend.build_payload(kw_list=Company,timeframe=timefr)
 
     # Interest Over Time from google trends
     interest_over_time_df = pytrend.interest_over_time()
