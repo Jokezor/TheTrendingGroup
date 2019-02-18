@@ -8,7 +8,11 @@
 
 '''
 #  Imports the Google_data.py program and we can use its functions.
+<<<<<<< HEAD
 # Comment extra
+=======
+#  Comment extra
+>>>>>>> 88d98b3f3dc07fe87995b72bac1ee7553ced7083
 import Google_data
 import Benchmark
 import Create_files
@@ -42,7 +46,7 @@ def main():
 
     if period_to_look == "Week":
         # Gets the last week's data
-        timeframe = "now 7-d"
+        timeframe = "today 5-y"
 
     # Calls on the Google_data's function Trending_google with our variables.
     timeframe = '2019-01-01 2019-02-01'
