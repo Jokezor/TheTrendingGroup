@@ -62,11 +62,17 @@ def main():
     timeframe = '2019-01-01 2019-02-01'
 
 
+
     # Calls on the Google_data's function Trending_google with our variables.
     # If not enough data is available, then returns a 0. (int)
     Trend_data = Google_data.Trending_google(Company,timeframe)
     Stock_datas = Stock_data.Get_stock_data(Company,timeframe)
-    Correlation.Get_correlation(Trend_data,Stock_datas)
+
+
+    # Time fo analysis
+    method = 'plot' # Gets a simple plot
+
+    Correlation.Get_correlation(Trend_data,Stock_datas,method)
 
     # Prints the trending data.
     #print (Trend_data)
