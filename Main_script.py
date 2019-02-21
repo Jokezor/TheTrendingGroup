@@ -8,21 +8,29 @@
 
 '''
 #  Imports the Google_data.py program and we can use its functions.
-<<<<<<< HEAD
-# Comment extra
-=======
-#  Comment extra
->>>>>>> 88d98b3f3dc07fe87995b72bac1ee7553ced7083
 import Google_data
 import Benchmark
 import Create_files
 import Hashit
+import Stock_data
+import Ask_dates
+import Period_to_timeframe
+import Correlation
+
+
 
 def main():
 
+    # Asks user and gets all input
+    #Company, period_to_look, period_of_change, percent_change = Ask_dates.Ask_dates()
+
+    Reset = False
 
     # What company we want to check
-    Company = ["Neonode","Apple"]
+    Company = ['Apple Inc.', 'Neonode Inc.']
+
+    #Create_files.Creation(Company,Reset)
+    Companies_to_reset = ['Apple Inc.', 'Neonode Inc.']
     Reset = False
 
     # Create new file to store Data
@@ -41,26 +49,27 @@ def main():
     auto = 1
 
     # just fun message output
-    if auto:
-        print ("Auto mode engaged")
+    #if auto:
+    #    print "Auto mode engaged"
 
     if period_to_look == "Week":
-        # Gets the last week's data
-        timeframe = "today 5-y"
+        # Gets the last year's data
+        timeframe = "today 1-y"
+
+    # Test to get one dates trending factor
+    # Convert period to timeframes for API
+    #timeframe = Period_to_timeframe.Period_to_timeframe(period_to_look)
+    timeframe = '2019-01-01 2019-02-01'
+
 
     # Calls on the Google_data's function Trending_google with our variables.
-    timeframe = '2019-01-01 2019-02-01'
-    Trend_data = Google_data.Trending_google(Company,"now 7-d")
-    #Trend_data = Google_data.Trending_google(Company,timeframe)
+    # If not enough data is available, then returns a 0. (int)
+    Trend_data = Google_data.Trending_google(Company,timeframe)
+    Stock_datas = Stock_data.Get_stock_data(Company,timeframe)
+    Correlation.Get_correlation(Trend_data,Stock_datas)
 
-    # prints the trending data.
-    # print (Trend_data)
-    #dict = Hashit.Create(Company+"_Trend")
-
-    for comp in Company:
-        Changes = Benchmark.Calc(Trend_data,comp)
-
-
+    # Prints the trending data.
+    #print (Trend_data)
 
 if __name__ == "__main__":
     main()

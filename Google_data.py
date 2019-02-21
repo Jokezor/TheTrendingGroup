@@ -1,10 +1,11 @@
 '''
     This program is solely responsable for taking the google trends data and output
-    a list with the time and trending data.
+    a hashtable with the time and trending data.
     We use a module named pytrends. I can only get it for python 2.7.
 
     Input: Company and timeframe
     Output: Hashtable with the time and corresponding trend data
+    If no data is found: Output=0
 '''
 
 # Python 2.7
@@ -12,6 +13,7 @@
 # https://github.com/GeneralMills/pytrends
 
 from pytrends.request import TrendReq
+import numpy as np
 
 def Trending_google(Company,timefr):
 
@@ -28,9 +30,12 @@ def Trending_google(Company,timefr):
     # Interest Over Time from google trends
     interest_over_time_df = pytrend.interest_over_time()
 
-    # Last date is 100 get the full data otherwise only period_to_look
-    # Store the data in the hashtable
-    Trend_data["Trend"] = interest_over_time_df.values[:,0]
-    Trend_data["Date"] = interest_over_time_df.index
-
-    return (Trend_data)
+    # If the company/companies contain trend data then construct the hashtable
+    # and return it. Otherwise return 0.
+    if not (interest_over_time_df.empty):
+        for i in range(0,len(Company)):
+            Trend_data[Company[i]] = interest_over_time_df.values[:,i].astype(float)
+        Trend_data["Date"] = interest_over_time_df.index
+        return (Trend_data)
+    else:
+        return (0)

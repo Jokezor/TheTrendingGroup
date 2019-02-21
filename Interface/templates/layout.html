@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>The Trending Group</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="includes/dropdown.min.css">
+
+  </head>
+  <body>
+    {% include 'includes/_navbar.html' %}
+
+    <div class ="container">
+      {% include 'includes/_messages.html' %}
+      {% block body %}{% endblock %}
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.11.2/basic/ckeditor.js"></script>
+    <script type="text/javascript">
+      CKEDITOR.replace('editor')
+    </script>
+    <script src="includes/dropdown.min.js"></script>
+  </body>
+</html>
