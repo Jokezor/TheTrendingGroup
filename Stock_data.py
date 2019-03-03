@@ -55,9 +55,6 @@ def Get_stock_data(Company,timeframe):
     # Create hashtable to store hashtables of company stock data
     Stock_data = {}
 
-    # Create empyy list
-    Dates = []
-
     # Go through each companies tickers
     for ticker in tickers:
 
@@ -73,6 +70,9 @@ def Get_stock_data(Company,timeframe):
         # Create lists
         Open_values = []
         Close_values = []
+
+        # Create empty list to ensure we can have companies in different markets combined.
+        Dates = []
 
         # Check if weekno+1 is >=5, then add two ['close'] to both Open_values and Close_values
         # Fixes stock prices for dates of weekends. Need only to check if we have
@@ -141,17 +141,19 @@ def Get_stock_data(Company,timeframe):
 
         # Just add the data for weekly stock data
         else:
-            for i in range(0,len(finance)):
+            # Skip first and last since yahoo gives the trend leading up the date
+            # And google data gives the summary of the week every sunday.
+            for i in range(1,len(finance)-1):
                 Open_values.append(finance[i]['open'])
                 Close_values.append(finance[i]['close'])
                 today = (finance[i]['formatted_date'])
                 today = (datetime.datetime.strptime(today, "%Y-%m-%d").date())
                 Dates.append(today)
 
-
         Prices['open'] = np.array(Open_values)
         Prices['close'] = np.array(Close_values)
 
         Stock_data[ticker] = Prices
+        Stock_data[ticker]['Date'] = Dates
 
-    return Stock_data, Dates
+    return Stock_data

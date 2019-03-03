@@ -27,10 +27,10 @@ def main():
     Reset = False
 
     # What company we want to check
-    Company = ['Apple Inc.', 'Neonode Inc.']
+    Company = ['Apple Inc.', 'Neonode Inc.', 'Tesla, Inc.']
 
     #Create_files.Creation(Company,Reset)
-    Companies_to_reset = ['Apple Inc.', 'Neonode Inc.']
+    Companies_to_reset = ['Apple Inc.', 'Neonode Inc.', 'Tesla, Inc.']
     Reset = False
 
     # Create new file to store Data
@@ -59,21 +59,19 @@ def main():
     # Test to get one dates trending factor
     # Convert period to timeframes for API
     #timeframe = Period_to_timeframe.Period_to_timeframe(period_to_look)
-    timeframe = '2017-09-01 2017-12-01'
-
-
+    timeframe = '2019-03-01 2019-03-03'
 
     # Calls on the Google_data's function Trending_google with our variables.
     # If not enough data is available, then returns a 0. (int)
     Trend_data = Google_data.Trending_google(Company,timeframe)
-    Stock_datas, Dates = Stock_data.Get_stock_data(Company,timeframe)
+    Stock_datas = Stock_data.Get_stock_data(Company,timeframe)
 
 
     # Time fo analysis
     method = 'plot' # Gets a simple plot
     #method = 'Linear Regression'
 
-    Correlation.Get_correlation(Trend_data,Stock_datas,method,Dates)
+    Correlation.Get_correlation(Trend_data,Stock_datas,method)
 
     # Prints the trending data.
     #print (Trend_data)

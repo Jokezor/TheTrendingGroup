@@ -7,34 +7,38 @@
     Output: The analysis which the method (string) specified.
 
 '''
-import datetime
-from datetime import datetime
-from datetime import date, timedelta
-import pandas as pd
+#import datetime
+#from datetime import datetime
+#from datetime import date, timedelta
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 
 
-def Get_correlation(Trend_data,Stock_data, method, Dates):
+def Get_correlation(Trend_data,Stock_data, method):
+
+    # Get all data
+    td = Trend_data['Apple Inc.']
+    td_dates = ((Trend_data['Date']).to_pydatetime())
+    sd = Stock_data['AAPL']['close']
+
+
+    #print (len(Stock_data['AAPL']['Date']))
+    print (Stock_data['AAPL']['Date'])
+    print (Trend_data['Date'])
+
+    # If not the same amount of data
+    if (len(sd)) != (len(td)):
+        print "\n \nERROR MESSAGE: Different length of trending data and stock data! \n"
+        print "Stock length:" + str((len(sd)))
+        print "Trend length:" + str((len(td)))
+        return 1
+
+
 
     if (method == 'plot'):
-        td = Trend_data['Apple Inc.']
-        sd = Stock_data['AAPL']['close']
 
-        print "Stock:" + str((len(sd)))
-        print "Trend:" + str((len(td)))
-
-        #print (Trend_data['Date'][0]-Dates[0])
-        #print ((Trend_data['Date'][0]))
-        td_dates = ((Trend_data['Date']).to_pydatetime())
-
-
-        #td_dates = str(td_dates)
-        #td_dates = datetime.datetime.strptime(td_dates, '%Y-%m-%d %H:%M:%S').date()
-
-        #print (td_dates)
         # Min-max normalization
         ntd = (td - min(td))/(max(td)-min(td))
         nsd = (sd - min(sd))/(max(sd)-min(sd))
