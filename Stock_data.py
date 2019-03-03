@@ -6,7 +6,8 @@
     until the end_date. [start_date,end_date)
 
     Input: Company/Companies and timeframe
-    Output: Hashtable with hashtable for each company with stock prices
+    Output: Hashtable with hashtable for each company with stock prices and dates
+    (We need this to debug)
 '''
 
 from dateutil import parser
@@ -54,6 +55,9 @@ def Get_stock_data(Company,timeframe):
     # Create hashtable to store hashtables of company stock data
     Stock_data = {}
 
+    # Create empyy list
+    Dates = []
+
     # Go through each companies tickers
     for ticker in tickers:
 
@@ -81,6 +85,7 @@ def Get_stock_data(Company,timeframe):
             while (weekno)>=5:
                 Open_values.append(finance[0]['open'])
                 Close_values.append(finance[0]['close'])
+                Dates.append(today)
                 today = today+timedelta(days=1)
                 weekno = (weekno+1)%7
 
@@ -89,9 +94,10 @@ def Get_stock_data(Company,timeframe):
             # we dont need to check since the market is closed
             holiday=1
             while (holiday==1):
-                if ((today.strftime('%m') + '-' + today.strftime('%d')) in Closed_days and today.weekday() < 5):
+                if ((today.strftime('%m') + '-' + today.strftime('%d')) in Closed_days[today.strftime('%Y')] and today.weekday() < 5):
                     Open_values.append(finance[0]['open'])
                     Close_values.append(finance[0]['close'])
+                    Dates.append(today)
                     today = today+timedelta(days=1)
                     weekno = (weekno+1)%7
                 else:
@@ -102,9 +108,9 @@ def Get_stock_data(Company,timeframe):
                 Open_values.append(finance[i]['open'])
                 Close_values.append(finance[i]['close'])
 
-
                 today = (finance[i]['formatted_date'])
                 today = (datetime.datetime.strptime(today, "%Y-%m-%d").date())
+                Dates.append(today)
                 weekno = (weekno+1)%7
 
                 today = today + timedelta(days=1)
@@ -113,6 +119,7 @@ def Get_stock_data(Company,timeframe):
                 while (weekno>=5 and today<check_end):
                     Open_values.append(finance[i]['close'])
                     Close_values.append(finance[i]['close'])
+                    Dates.append(today)
                     today = today + timedelta(days=1) # Add one day to keep track
                     weekno = (weekno+1)%7
 
@@ -121,11 +128,12 @@ def Get_stock_data(Company,timeframe):
                 # If there's a non holiday, then stop checking
                 # If we start to check on a holiday, wee need to get the stock info
                 holiday=1
-
+                #print (today.strftime('%Y'))
                 while (holiday==1):
-                    if ((today.strftime('%m') + '-' + today.strftime('%d')) in Closed_days and weekno <5 and today<check_end):
+                    if ((today.strftime('%m') + '-' + today.strftime('%d')) in Closed_days[today.strftime('%Y')] and weekno <5 and today<check_end):
                         Open_values.append(finance[i]['open'])
                         Close_values.append(finance[i]['close'])
+                        Dates.append(today)
                         today = today+timedelta(days=1)
                         weekno = (weekno+1)%7
                     else:
@@ -136,6 +144,9 @@ def Get_stock_data(Company,timeframe):
             for i in range(0,len(finance)):
                 Open_values.append(finance[i]['open'])
                 Close_values.append(finance[i]['close'])
+                today = (finance[i]['formatted_date'])
+                today = (datetime.datetime.strptime(today, "%Y-%m-%d").date())
+                Dates.append(today)
 
 
         Prices['open'] = np.array(Open_values)
@@ -143,4 +154,4 @@ def Get_stock_data(Company,timeframe):
 
         Stock_data[ticker] = Prices
 
-    return Stock_data
+    return Stock_data, Dates
