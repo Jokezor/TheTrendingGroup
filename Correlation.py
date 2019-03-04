@@ -2,7 +2,6 @@
     This program is the main file responsible for all the different tests.
 
 
-
     Input: Trend_data (hashtable), Stock_data (hashtable), method (string)
     Output: The analysis which the method (string) specified.
 
@@ -15,18 +14,18 @@ import numpy as np
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 
-
 def Get_correlation(Trend_data,Stock_data, method):
 
     # Get all data
-    td = Trend_data['Apple Inc.']
+    td = Trend_data['Tesla, Inc. ']
     td_dates = ((Trend_data['Date']).to_pydatetime())
-    sd = Stock_data['AAPL']['close']
-
+    #print Stock_data
+    sd = Stock_data['TSLA']['close']
 
     #print (len(Stock_data['AAPL']['Date']))
-    print (Stock_data['AAPL']['Date'])
+    #print (Stock_data['TSLA']['Date'])
     print (Trend_data['Date'])
+    #print (td)
 
     # If not the same amount of data
     if (len(sd)) != (len(td)):
@@ -34,8 +33,6 @@ def Get_correlation(Trend_data,Stock_data, method):
         print "Stock length:" + str((len(sd)))
         print "Trend length:" + str((len(td)))
         return 1
-
-
 
     if (method == 'plot'):
 
@@ -54,8 +51,8 @@ def Get_correlation(Trend_data,Stock_data, method):
     elif (method == 'Linear Regression'):
         # Load the diabetes dataset
         diabetes = datasets.load_diabetes()
-        td = np.resize(Trend_data['Apple Inc.'],(len(Trend_data['Apple Inc.']),1))
-        sd = np.resize(Stock_data['AAPL']['close'],(len(Stock_data['AAPL']['close']),1))
+        td = np.resize(Trend_data['Tesla, Inc.'],(len(Trend_data['Tesla, Inc.']),1))
+        sd = np.resize(Stock_data['TSLA']['close'],(len(Stock_data['TSLA']['close']),1))
 
         #print(td.shape)
         #print(sd.shape)

@@ -104,40 +104,49 @@ def Get_stock_data(Company,timeframe):
                     holiday=0
 
             # Now goes through each financial day
+            last_day = []
             for i in range(0,len(finance)):
-                Open_values.append(finance[i]['open'])
-                Close_values.append(finance[i]['close'])
 
                 today = (finance[i]['formatted_date'])
                 today = (datetime.datetime.strptime(today, "%Y-%m-%d").date())
-                Dates.append(today)
-                weekno = (weekno+1)%7
 
-                today = today + timedelta(days=1)
+                # Need to check so we don't add the same day's values.
+                # YahooFinancials returns two dates, probably something with
+                # Closed market values, can't find info on it.
+                if (str(today) not in last_day):
 
-                # If there's a weekend
-                while (weekno>=5 and today<check_end):
-                    Open_values.append(finance[i]['close'])
+                    last_day.append(str(today))
+                    Open_values.append(finance[i]['open'])
                     Close_values.append(finance[i]['close'])
+
                     Dates.append(today)
-                    today = today + timedelta(days=1) # Add one day to keep track
                     weekno = (weekno+1)%7
 
-                # Checks five days ahead if theres holidays on all days in a series
-                # If tomorrow is a holiday then only need to check 5 days more
-                # If there's a non holiday, then stop checking
-                # If we start to check on a holiday, wee need to get the stock info
-                holiday=1
-                #print (today.strftime('%Y'))
-                while (holiday==1):
-                    if ((today.strftime('%m') + '-' + today.strftime('%d')) in Closed_days[today.strftime('%Y')] and weekno <5 and today<check_end):
-                        Open_values.append(finance[i]['open'])
+                    today = today + timedelta(days=1)
+
+                    # If there's a weekend
+                    while (weekno>=5 and today<check_end):
+                        Open_values.append(finance[i]['close'])
                         Close_values.append(finance[i]['close'])
                         Dates.append(today)
-                        today = today+timedelta(days=1)
+                        today = today + timedelta(days=1) # Add one day to keep track
                         weekno = (weekno+1)%7
-                    else:
-                        holiday = 0
+
+                    # Checks five days ahead if theres holidays on all days in a series
+                    # If tomorrow is a holiday then only need to check 5 days more
+                    # If there's a non holiday, then stop checking
+                    # If we start to check on a holiday, wee need to get the stock info
+                    holiday=1
+                    while (holiday==1):
+                        if ((today.strftime('%m') + '-' + today.strftime('%d')) in Closed_days[today.strftime('%Y')] and weekno <5 and today<check_end):
+                            Open_values.append(finance[i]['open'])
+                            Close_values.append(finance[i]['close'])
+                            Dates.append(today)
+                            today = today+timedelta(days=1)
+                            weekno = (weekno+1)%7
+                        else:
+                            holiday = 0
+
 
         # Just add the data for weekly stock data
         else:
