@@ -18,14 +18,16 @@ def Get_correlation(Trend_data,Stock_data, method):
 
     # Get all data
     td = Trend_data['Tesla, Inc. ']
-    td_dates = ((Trend_data['Date']).to_pydatetime())
-    #print Stock_data
+
+    if str(type(Trend_data['Date'])) == '<type \'list\'>':
+        td_dates = ((Trend_data['Date']))
+    else:
+        td_dates = ((Trend_data['Date']).to_pydatetime())
+
+
     sd = Stock_data['TSLA']['close']
 
-    #print (len(Stock_data['AAPL']['Date']))
-    #print (Stock_data['TSLA']['Date'])
-    print (Trend_data['Date'])
-    #print (td)
+
 
     # If not the same amount of data
     if (len(sd)) != (len(td)):

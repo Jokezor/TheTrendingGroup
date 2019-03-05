@@ -35,7 +35,13 @@ def Get_stock_data(Company,timeframe):
     start_date = timeframe[0:10]
 
     # Second date
-    end_date = timeframe[11:len(timeframe)]
+    if len(timeframe)>=25:
+        end_date = timeframe[14:len(timeframe)-3]
+    else:
+        end_date = timeframe[11:len(timeframe)]
+    
+
+
 
     # Frequency of the stock data
     freq = 'daily'

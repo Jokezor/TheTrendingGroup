@@ -17,7 +17,7 @@ import Ask_dates
 import Period_to_timeframe
 import Correlation
 import Check_dates
-
+import Readjust_trend_period
 
 
 def main():
@@ -60,17 +60,22 @@ def main():
     # Test to get one dates trending factor
     # Convert period to timeframes for API
     #timeframe = Period_to_timeframe.Period_to_timeframe(period_to_look)
-    timeframe = '2019-02-01 2019-03-01'
+    timeframe = '2019-02-01 2019-03-04'
 
     # Need to check if we need time
     Google_timeframe = Check_dates.Check_dates(timeframe)
+
 
     # Calls on the Google_data's function Trending_google with our variables.
     # If not enough data is available, then returns a 0. (int)
     Trend_data = Google_data.Trending_google(Company,Google_timeframe)
 
+    #print(Trend_data["Date"])
     # Need to adjust the data from Google to make sure it's daily average.
-    Stock_datas = Stock_data.Get_stock_data(Company,timeframe)
+    Trend_data = Readjust_trend_period.Readjust(Trend_data, period_of_change)
+
+
+    Stock_datas = Stock_data.Get_stock_data(Company, Google_timeframe)
 
 
     # Time fo analysis
