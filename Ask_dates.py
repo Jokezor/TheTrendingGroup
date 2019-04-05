@@ -24,7 +24,7 @@ def Ask_dates():
         period_to_look = raw_input("\nWhat period are you interested in as a benchmark? \n(Year, Month, Week, Day)\n")
 
         # Keep asking the user to specify correct
-        if((period_to_look != "Year" and period_to_look != "Month" and period_to_look != "Week" and period_to_look != "day")):
+        if((period_to_look != "Year" and period_to_look != "Month" and period_to_look != "Week" and period_to_look != "Day")):
             print "\n" + "Wrong Input: " + period_to_look + "\n" +  "Try Again."
 
     # Placeholder name
@@ -35,19 +35,31 @@ def Ask_dates():
 
         if (period_to_look == "Year"):
             period_of_change = raw_input("\nWhat period are you interested to check increase? \n(Month,Week,Day)\n")
+            # Keep asking the user to specify correct
+            if((period_of_change != "Month" and period_of_change != "Week" and period_of_change != "Day")):
+                print "\n" + "Wrong Input: " + period_of_change + "\n" +  "Try Again."
+                period_of_change = 0
 
         if (period_to_look == "Month"):
             period_of_change = raw_input("\nWhat period are you interested to check increase? \n(Month,Week,Day)\n")
+            # Keep asking the user to specify correct
+            if((period_of_change != "Month" and period_of_change != "Week" and period_of_change != "Day")):
+                print "\n" + "Wrong Input: " + period_of_change + "\n" +  "Try Again."
+                period_of_change = 0
 
         if (period_to_look == "Week"):
             period_of_change = raw_input("\nWhat period are you interested to check increase? \n(Week,Day)\n")
+            # Keep asking the user to specify correct
+            if((period_of_change != "Week" and period_of_change != "Day")):
+                print "\n" + "Wrong Input: " + period_of_change + "\n" +  "Try Again."
+                period_of_change = 0
 
         if (period_to_look == "Day"):
             period_of_change = raw_input("\nWhat period are you interested to check increase? \n(Day)\n")
-
-        # Keep asking the user to specify correct
-        if((period_of_change != "Month" and period_of_change != "Week" and period_of_change != "Day")):
-            print "\n" + "Wrong Input: " + period_of_change + "\n" +  "Try Again."
+            # Keep asking the user to specify correct
+            if((period_of_change != "Day")):
+                print "\n" + "Wrong Input: " + period_of_change + "\n" +  "Try Again."
+                period_of_change = 0
 
 
     # Placeholder value
@@ -62,4 +74,4 @@ def Ask_dates():
             print "\n" + "Wrong Input: " + str(percent_change) + "\n" +  "Try Again."
 
 
-    return Company, period_to_look, period_of_change, percent_change
+    return [Company], period_to_look, period_of_change, percent_change

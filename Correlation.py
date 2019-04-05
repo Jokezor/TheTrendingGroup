@@ -27,6 +27,8 @@ def Get_correlation(Trend_data,Stock_data, method):
 
     sd = Stock_data['TSLA']['close']
 
+    #print (td_dates)
+    #print Stock_data['TSLA']['Date']
 
 
     # If not the same amount of data
@@ -53,7 +55,7 @@ def Get_correlation(Trend_data,Stock_data, method):
     elif (method == 'Linear Regression'):
         # Load the diabetes dataset
         diabetes = datasets.load_diabetes()
-        td = np.resize(Trend_data['Tesla, Inc.'],(len(Trend_data['Tesla, Inc.']),1))
+        td = np.resize(Trend_data['Tesla, Inc. '],(len(Trend_data['Tesla, Inc. ']),1))
         sd = np.resize(Stock_data['TSLA']['close'],(len(Stock_data['TSLA']['close']),1))
 
         #print(td.shape)

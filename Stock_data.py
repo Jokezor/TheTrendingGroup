@@ -34,13 +34,11 @@ def Get_stock_data(Company,timeframe):
     # First date
     start_date = timeframe[0:10]
 
-    # Second date
+    # Second date, checks if we got time dependency
     if len(timeframe)>=25:
         end_date = timeframe[14:len(timeframe)-3]
     else:
         end_date = timeframe[11:len(timeframe)]
-    
-
 
 
     # Frequency of the stock data
@@ -153,17 +151,30 @@ def Get_stock_data(Company,timeframe):
                         else:
                             holiday = 0
 
-
         # Just add the data for weekly stock data
         else:
-            # Skip first and last since yahoo gives the trend leading up the date
+            # Skip first since yahoo gives the trend leading up the date
             # And google data gives the summary of the week every sunday.
-            for i in range(1,len(finance)-1):
+            for i in range(1,len(finance)):
                 Open_values.append(finance[i]['open'])
                 Close_values.append(finance[i]['close'])
                 today = (finance[i]['formatted_date'])
                 today = (datetime.datetime.strptime(today, "%Y-%m-%d").date())
                 Dates.append(today)
+
+            # If the end date of the timeframe is a sunday, since we added one day
+            # to get the data including the end_date, this is equivalent to
+            # check_end is a monday.
+            if check_end.weekday()==0:
+                # Now we need to back until monday and then sum all the closing prices
+                # and divide by the amount of days.
+                # Get daily data
+                #print type(today)
+                #print type(start_date)
+                freq = 'daily'
+                finance = financials.get_historical_price_data(str(today), str(check_end), freq)[ticker]['prices']
+                print(finance['formatted_date'])
+
 
         Prices['open'] = np.array(Open_values)
         Prices['close'] = np.array(Close_values)
