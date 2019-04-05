@@ -14,8 +14,9 @@ from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 
+
 # To read from file
-#from data import Articles
+from data import Articles
 
 app = Flask(__name__)
 
@@ -38,7 +39,7 @@ def index():
     return render_template('home.html')
 
 # Read from file
-#Articles = Articles()
+Articles = Articles()
 
 # About
 @app.route('/about')
@@ -46,7 +47,14 @@ def about():
     return render_template('about.html')
 
 
+# About
+@app.route('/articles')
+def articles():
+    return render_template('articles.html', articles = Articles)
+
+'''
 # Several articles
+
 @app.route('/articles')
 def articles():
     # Create cursor
@@ -66,6 +74,7 @@ def articles():
 
     # Close connection to db
     cur.close()
+'''
 
 '''
 # Send the Companies to choose from

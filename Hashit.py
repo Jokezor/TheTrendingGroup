@@ -4,22 +4,22 @@ import pandas as pd
 import os
 
 
-def Store(fname,dict):
+def Store(Company,fname,dict):
 
     f = open(fname,"w")
 
-    i = len(dict["Trend"])
+    i = len(dict[Company])
 
     for j in range(0,i):
         f.write('%s#%s\n' %\
-        (dict["Date"][j],dict["Trend"][j]))
+        (dict["Date"][j],dict[Company][j]))
 
     f.close()
 
     return 0
 
 
-def Create(fname):
+def Create(Company,fname):
 
     f  = open(fname,"r")
 
@@ -33,13 +33,13 @@ def Create(fname):
 
     Element_array = np.empty(i+1, dtype=int)
     Date_array = np.empty(i+1, dtype="datetime64[ns]")
-    dict = {'Trend':Element_array,'Date':Date_array}
+    dict = {Company:Element_array,'Date':Date_array}
 
     j = 0
     for line in f:
         Date, Element = line.strip().split('#',1)
         dict["Date"][j] = Date
-        dict["Trend"][j] = Element
+        dict[Company][j] = float(Element)
         j += 1
 
     f.close()
