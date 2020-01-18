@@ -23,7 +23,7 @@ app = Flask(__name__)
 # Config MYSQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_PASSWORD'] = 'rootpass'
 app.config['MYSQL_DB'] = 'interface'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
