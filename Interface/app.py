@@ -3,8 +3,7 @@
     and flask.
     All files in interface are for the interface.
 
-    Input: From user
-    Output: Company, period_to_look, period_of_change, percent_change
+
 '''
 
 # https://www.youtube.com/watch?v=zRwy8gtgJ1A&index=1&list=PLillGF-RfqbbbPz6GSEM9hLQObuQjNoj_
@@ -136,7 +135,7 @@ def register():
         name = form.name.data
         email = form.email.data
         username = form.username.data
-        password = sha256_crypt.encrypt(str(form.password.data))
+        password = sha256_crypt.hash(str(form.password.data))
 
         # Create cursor
         cur = mysql.connection.cursor()

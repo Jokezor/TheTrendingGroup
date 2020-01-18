@@ -1,6 +1,6 @@
 import os
 
-def Creation(Company,Reset):
+def Creation(Company, Reset):
     for comp in Company:
         if ((os.path.isfile(comp+"_Bench")==False) or Reset):
             f = open(comp+"_Bench","w+")

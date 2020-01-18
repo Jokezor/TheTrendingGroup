@@ -7,6 +7,10 @@
     First we will try to get some trending data from google trends.
 '''
 #  Imports the Google_data.py program and we can use its functions.
+import sys
+
+sys.path.insert(1, '/Users/JO/Documents/TheTrendingGroup/Scripts')
+
 import Google_data
 import Benchmark
 import Create_files
@@ -46,8 +50,8 @@ def main():
 
 
     else:
-        print "\n \nERROR MESSAGE: No Trending data! \n"
-        print "Trend data:" + str((Trend_data))
+        print ("\n \nERROR MESSAGE: No Trending data! \n")
+        print ("Trend data:" + str((Trend_data)))
         return 1
 
 
