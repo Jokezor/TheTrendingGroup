@@ -4,23 +4,29 @@
 {% block body %}
   <div class="jumbotron text-center">
     <h1>Trending Analysis and Stock correlation</h1>
-    <p class="lead">Easy tool to analyze trending data and to set alarms based on previous benchmarks. </p> 
+    <p class="lead">Easy tool to analyze trending data and to set alarms based on previous benchmarks. 
+    </p> 
     {% if session.logged_in == NULL %}
-      <!--p> <br> Login to be able to run and start queries.</p-->
+      <p> <br> Login to be able to run and start queries.</p>
       <a href="/register" class="btn btn-primary btn-lg">Register</a>
       <a href="/login" class="btn btn-success btn-lg">Login</a>
 
     {% endif %}
 
+    {% if session.logged_in != NULL %}
+      <p> <br> Welcome {{session['username']}}!  <br> Start analyzing trends and set alarms in the Analyze tab.</p>
 
+
+    {% endif %}
   </div>
   <!--div class="jumbotron text-center">
-    <h1>Select Company/Companies to analyze</h1>
+    <h1>Select Company/Companies to  </h1>
   </div-->
 {% endblock %}
 
 <!--{% if session.logged_in != NULL %}
       <p> <br> Welcome!  <br> Start analyzing trends and set alarms in the Analyze tab.</p>
-      {% session.user %}
+      <p> <br> Login to be able to run and start queries.</p>
 
-    {% endif %}-->
+{% endif %}
+-->

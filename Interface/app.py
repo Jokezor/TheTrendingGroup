@@ -6,7 +6,10 @@
 
 '''
 
+# Continue with part 2 tomorrow.
+# Mailgun for emails
 # https://www.youtube.com/watch?v=zRwy8gtgJ1A&index=1&list=PLillGF-RfqbbbPz6GSEM9hLQObuQjNoj_
+
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
 from functools import wraps
 from flask_mysqldb import MySQL
@@ -46,7 +49,7 @@ def about():
     return render_template('about.html')
 
 
-# About
+# Articles
 @app.route('/articles')
 def articles():
     return render_template('articles.html', articles = Articles)
@@ -140,20 +143,36 @@ def register():
         # Create cursor
         cur = mysql.connection.cursor()
 
-        # Execute query
-        cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name,email,username,password))
+        # Get user and email for checking
+        result_username = cur.execute("SELECT * FROM users WHERE username=%s", [username])
+        result_email = cur.execute("SELECT * FROM users WHERE email=%s", [email])
 
-        # Commit to # DB
-        mysql.connection.commit()
 
-        # Close connection
-        cur.close()
+        # If we get any data from db
+        if not(result_username > 0) and not(result_email > 0):
 
-        flash('You are now registered and can log in', 'success')
+            # Execute query
+            cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name,email,username,password))
 
-        return redirect(url_for('index'))
+            # Commit to # DB
+            mysql.connection.commit()
 
-        return render_template('register.html', form=form)
+            # Close connection
+            cur.close()
+
+            flash('You are now registered and can log in', 'success')
+
+            return redirect(url_for('index'))
+
+            return render_template('register.html', form=form)
+        elif (result_username > 0):
+            error = 'Username already registered.'
+            return render_template('register.html', form=form, error=error)
+        else:
+            error = 'Email already registered.'
+            return render_template('register.html', form=form, error=error)
+
+
     return render_template('register.html', form=form)
 
 # User login
