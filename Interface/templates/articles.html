@@ -3,15 +3,19 @@
 
 {% block body %}
   <h1>Articles</h1>
-  	<li>Tesla
+    <!-- I don't think we can access these scripts from our API. Need to include our own plots. 
+    	 Need to run our script say hourly to get the updated information. -->
+  <ul class="list-group">
+    {% for article in articles %}
+      <li class="list-group-item"><a href="article/{{article.id}}">{{article.author}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+
+<!--li>Tesla
   	<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2051_RC11/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"tesla","geo":"US","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=US&q=tesla&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script> 
   	</li>
   	<li>Apple
   	<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2051_RC11/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"Apple","geo":"US","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=US&q=Apple&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script> 
-  	</li>
-  <!--ul class="list-group">
-    {% for article in articles %}
-      <li class="list-group-item"><a href="article/{{article.id}}">{{article.author}}</a></li>
-    {% endfor %}
-  </ul-->
-{% endblock %}
+  	</li-->
